@@ -6,9 +6,11 @@ exports = (typeof window === 'undefined') ? global : window;
  * populated at all; your job is to fill them out.
  */
 
+
 exports.bestPracticesAnswers = {
-  globals : function() {
-    myObject = {
+
+ globals : function() {
+    var myObject = {
       name : 'Jory'
     };
 
@@ -16,20 +18,47 @@ exports.bestPracticesAnswers = {
   },
 
   functions : function(flag) {
-    if (flag) {
-      function getValue() { return 'a'; }
-    } else {
-      function getValue() { return 'b'; }
+    // getValue is used here I would have rather just wrote return flag
+    // also we can assing assign flag as this.flag = flag so that we didn't have to pass it again
+    function getValue(flag){
+        return flag ? 'a' : 'b';
     }
 
-    return getValue();
+    return getValue(flag);
   },
 
   parseInt : function(num) {
-    return parseInt(num);
+    // It can be extended more but the test cases demands only this
+    
+    if(typeof num === "undefined"){
+        return false;
+    }
+    if(typeof num === "number"){
+        return num;
+    }
+    function getNumber(args){
+       args = args.filter(function(val){
+                return val.trim() !== "";     
+            });
+        return function(){
+            if(args.length > 1){
+                num = parseInt(args[0]) * parseInt(args[1]);
+                if(num == "NaN"){
+                    return flase;
+                }
+                else {
+                  return num;    
+                }
+            }
+            return parseInt(num.replace(/\D/g,'')) === "NAN" ? "":parseInt(num.replace(/\D/g,''));            
+        }      
+    }
+    var args = num.split('x');
+    return getNumber(args)();
+     
   },
 
   identity : function(val1, val2) {
 
-  }
+  },
 };

@@ -10,6 +10,21 @@ exports.flowControlAnswers = {
     //
     // otherwise the function should return the number, or false if no number
     // was provided or the value provided is not a number
+    var num = exports.bestPracticesAnswers.parseInt(num);
+    if(!num){
+      return false;
+    }
+    var returnString = "";
+    if(num % 3 === 0){
+        returnString += "fizz"; // If number of concatenation increases for optimization use array and join at the end()
+    }
+    if(num % 5 === 0){
+        returnString += "buzz";
+    }
+    if(returnString.trim() === ""){
+        return num;
+    }
+    return returnString;
 
   }
 };
